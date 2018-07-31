@@ -2,13 +2,9 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {verifyToken} = require('../authentication/auth');
-//const {create} = require('../user/');
+const {importData } = (require('./country.controller'));
 
-
-
-//router.post('/',createUser);
-//router.get('/',verifyToken ,returnSelf);
-
+router.get('/import',importData);
 
 module.exports = router;
         

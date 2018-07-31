@@ -9,7 +9,7 @@ const countryRouter = require('../modules/country/country.router');
 const authentication = require('../modules/authentication/auth');
 const userRouter = require('../modules/user/user.router');
 
-// app.use('/country', countryRouter);
+app.use('/country', countryRouter);
 // app.use('/authentication', authentication);
 
 app.use('/user', userRouter);
