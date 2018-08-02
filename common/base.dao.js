@@ -8,10 +8,13 @@ class BaseDao {
       return instance;
     }
   
-    find(query, skip = 0, limit = 10) {
+    find(query, limit , skip) {
       return this.Model.find(query).skip(skip).limit(limit);
     }
   
+    count(query = {}) {
+      return this.Model.count(query);
+  }
     async findOne(query) {
       const result = await this.Model.findOne(query);
       return result;

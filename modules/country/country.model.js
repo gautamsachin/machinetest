@@ -1,51 +1,63 @@
 var mongoose = require('mongoose');
 var countrySchema = new mongoose.Schema({
-  name: {type:String},
+  name: { type: String, required: true },
   topLevelDomain: [{
-    type: String
+    type: String, default: ''
   }],
-  alpha2Code: String,
-  alpha3Code: String,
+  alpha2Code: {
+    type: String, default: ''
+  },
+  alpha3Code: {
+    type: String, default: ''
+  },
   callingCodes: [{
-    type: String
+    type: String, default: ''
   }],
-  capital: String,
+  capital: {
+    type: String, default: ''
+  },
   altSpellings: [{
-    type: String
+    type: String, default: ''
   }],
-  region: String,
-  subregion: String,
-  population: Number,
+  region: {
+    type: String, default: ''
+  },
+  subregion: {
+    type: String, default: ''
+  },
+  population: { type: Number, default: 0 },
   latlng: [{
-    type: String
+    type: String, default: ''
   }],
   demonym: String,
-  area: Number,
-  gini: Number,
+  area: { type: Number, default: 0 },
+  gini: { type: Number, default: 0 },
   timezones: [
     {
-      type: String
+      type: String, default: ''
     }],
   borders: [
     {
-      type: String
+      type: String, default: ''
     }],
-  nativeName: String,
-  numericCode: Number,
+  nativeName: {
+    type: String, default: ''
+  },
+  numericCode: { type: Number, default: 0 },
   currencies: [
     {
-      type: String
+      type: String, default: ''
     }],
   languages: [
     {
-      type: String
+      type: String, default: ''
     }],
 
   // translations: [
   //   {
   //     type: String
   //   }],
-  relevance: Number
+  relevance: { type: Number, default: 0 }
 
 
 

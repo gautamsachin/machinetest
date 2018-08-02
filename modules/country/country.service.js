@@ -3,23 +3,6 @@ const client = require('axios');
 const { resolve } = require('../../common/util');
 const exceptionGenerator = require('../../common/exception/exception.generator')
 
-async function createUser(req, res) {
-    try {
-        let { name, email, password } = req.body;
-        password = bcrypt.hashSync(password, 10);
-        let user = await User.create({ name, email, password });
-        console.log('user is ', user);
-        const token = jwt.sign({ email: user.email }, 'supersecret', {
-            expiresIn: 86400
-        })
-        res.send({ user, token });
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).send("There was a problem finding the users.")
-    }
-}
-
 
 async function importDataWebService() {
     let { data } = await client.get("https://restcountries.eu/rest/v1/all");
@@ -33,13 +16,36 @@ async function importDataWebService() {
 }
 
 
-async function getCountry({limit,skip}) {
-    let{ data, error} = await resolve (countryDao.find());
-    if(error) throw exceptionGenerator.createCustomException(error);
+async function getCountry({ limit, skip }) {
+    limit = limit ? parseInt(limit) : 10;
+    skip = skip ? parseInt(skip) : 0;
+    console.log(limit, skip)
+    let { data: count, error: dbError } = await resolve(countryDao.count());
+    let { data, error } = await resolve(countryDao.find({}, limit, skip));
+    data.count = count;
+    if (error) throw exceptionGenerator.createCustomException(error);
+    //console.log(data);
+    return data;
+
+}
+
+async function saveCountryDetail(countryObj) {
+    let { data, error } = await resolve(countryDao.create(countryObj));
+    if (error) throw exceptionGenerator.createCustomException(error);
+    //console.log(data);
     return data;
 
 }
 
 
 
-module.exports = { importDataWebService, getCountry };
+async function updateCountryDetail(countryObj) {
+    let { data, error } = await resolve(countryDao.create(countryObj));
+    if (error) throw exceptionGenerator.createCustomException(error);
+    //console.log(data);
+    return data;
+
+}
+
+
+module.exports = { importDataWebService, getCountry, saveCountryDetail, updateCountryDetail };
