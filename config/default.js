@@ -1,7 +1,7 @@
 module.exports = {
     system: {
         JWT_SECRET: 'sup@rsecr@t',
-        EXPIRES_IN: 86400
+        EXPIRES_IN:{EXPIRES_IN:86400},
     },
     database:
     {

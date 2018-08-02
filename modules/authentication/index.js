@@ -1,13 +1,20 @@
 const passport = require('passport');
+const  {sendSuccess,throwError }  = require('../../common/response.handler') ;
+const {verifyToken,createToken} = require('./auth');
+
 passport.use(require('./local.authentication'));
 
- function  authorizeUser(req,res,next) {
-     passport.authenticate('local',(err,user)=>{
+ async function authorizeUser(req,res,next) {
+     return passport.authenticate('local',(err,user)=>{
         if(err || !user){
-            return app.throwError(res, err);
+            console.log(err);
+            return throwError(res, err);
         }  
-        console.log('user from authorize user is',user);
+        
+        const token = createToken(user);
+        console.log('token is ',token);
         req.user= user;
+        req.token = token;
         return next()
     })(req,res,next);
 }

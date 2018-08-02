@@ -1,4 +1,4 @@
-    const {verify} = require('jsonwebtoken');
+    const {verify, sign} = require('jsonwebtoken');
     const {system} = require('config');
 
     async function verifyToken(req,res, next) {
@@ -13,5 +13,9 @@
         }
     }
 
+     function createToken ({email}) {
+     return sign({email},system.JWT_SECRET);
+    }
 
-    module.exports = ()=>verifyToken;
+
+    module.exports ={verifyToken,createToken};

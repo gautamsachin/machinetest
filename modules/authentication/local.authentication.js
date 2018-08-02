@@ -1,9 +1,12 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const {verifyCredentials} = require('../user/user.service');
+let {verifyCredentials} = require('../user/user.service');
+const {resolve} = require('../../common/util');
 
-module.exports = new localStrategy(function(username,password,done){
-if(!username || !password) return done(true);
-console.log('inside the local strategy method');
-return done(null,{email:'sachingautam36@gmail.com'});
+module.exports = new localStrategy(  { usernameField: 'email', passwordField: 'password' },async function( email,password,done){
+if(!email || !password)return done(true) ;
+let {data,error} = await resolve( verifyCredentials(email,password));
+console.log('user is',data);
+if(error) return done(error);
+return done(null,data);
 })

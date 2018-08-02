@@ -32,4 +32,14 @@ async function importDataWebService() {
     return { msg: 'data imported successfully' };
 }
 
-module.exports = { importDataWebService };
+
+async function getCountry({limit,skip}) {
+    let{ data, error} = await resolve (countryDao.find());
+    if(error) throw exceptionGenerator.createCustomException(error);
+    return data;
+
+}
+
+
+
+module.exports = { importDataWebService, getCountry };
