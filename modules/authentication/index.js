@@ -7,12 +7,10 @@ passport.use(require('./local.authentication'));
  async function authorizeUser(req,res,next) {
      return passport.authenticate('local',(err,user)=>{
         if(err || !user){
-            console.log(err);
             return throwError(res, err);
         }  
         
         const token = createToken(user);
-        console.log('token is ',token);
         req.user= user;
         req.token = token;
         return next()

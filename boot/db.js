@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 const {database} = require('config');
 
 mongoose.Promise = Promise;
-console.log(database.MONGO_URL);
 // Create the database connection
 mongoose.connect(database.MONGO_URL);
 

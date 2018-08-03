@@ -15,11 +15,9 @@ async function createUser(email, password, name) {
 
 async function verifyCredentials(email, password) {
     let {data:user,error} = await resolve(userDao.findOne({ email }));
-    console.log(user);
     if(!user) throw exceptionGenerator.userDoesNotExistError(email);
     if(!compareSync(password,user.password)) throw exceptionGenerator.invalidCredentials(email);
     let data = user.toJSON();
-    console.log(data);
     return data;
 }
 

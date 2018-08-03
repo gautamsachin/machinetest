@@ -6,7 +6,6 @@ const {resolve} = require('../../common/util');
 module.exports = new localStrategy(  { usernameField: 'email', passwordField: 'password' },async function( email,password,done){
 if(!email || !password)return done(true) ;
 let {data,error} = await resolve( verifyCredentials(email,password));
-console.log('user is',data);
 if(error) return done(error);
 return done(null,data);
 })

@@ -50,7 +50,6 @@ async function updateCountryDetail(countryId,obj) {
 }
 
 async function deleteCoutryDetails(countryId) {
-    console.log(countryId);
     let { data, error } = await resolve(countryDao.remove({_id:countryId}));
     if (error) throw exceptionGenerator.createCustomException(error);
     if(data.n==0) return {msg:'id does not exist'};
