@@ -16,12 +16,14 @@ async function importDataWebService() {
 }
 
 
-async function getCountry({ limit, skip }) {
+async function getCountry({ limit, skip,id }) {
+    let where = {}
+    if(id) {where["_id"]= id};
     limit = limit ? parseInt(limit) : 10;
     skip = skip ? parseInt(skip) : 0;
     console.log(limit, skip)
     let { data: count, error: dbError } = await resolve(countryDao.count());
-    let { data, error } = await resolve(countryDao.find({}, limit, skip));
+    let { data, error } = await resolve(countryDao.find(where, limit, skip));
     data.count = count;
     if (error) throw exceptionGenerator.createCustomException(error);
     //console.log(data);

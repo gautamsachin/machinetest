@@ -9,9 +9,8 @@ const handleSuccess = (res, data) => {
   const responseInstance = new APIResponse();
   responseInstance.success(data);
   res.status(responseInstance.httpStatus).send(responseInstance.toJSON());
-  debugger
+  
 };
-
 const handleError = (res, err) => {
   const responseInstance = new APIResponse();
   if (!(err instanceof Exception)) {

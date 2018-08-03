@@ -17,7 +17,8 @@ async function importData(req, res) {
 async function getCountryData(req,res) {
     try{
     let {limit, skip} = req.query;
-     let data= await getCountry({limit,skip});
+    let {id} =req.params;
+     let data= await getCountry({limit,skip,id});
      return sendSuccess(res,data)
     }
     catch(err){

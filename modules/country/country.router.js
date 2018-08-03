@@ -5,7 +5,7 @@ const {verifyToken} = require('../authentication/auth');
 const {importData, getCountryData, saveCountry, updateCountry } = (require('./country.controller'));
 
 router.get('/import',importData);
-router.get('/list',getCountryData);
+router.get('/list/:id?',getCountryData);
 router.post('/create',saveCountry);
 router.put('/update/:id',updateCountry);
 
