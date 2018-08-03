@@ -9,7 +9,7 @@
         next();
         }
         catch(err){
-    res.status(401).send('access token is not valid');
+    res.status(401).send({msg:'access token is not valid'});
         }
     }
 

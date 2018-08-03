@@ -8,8 +8,8 @@ class BaseDao {
       return instance;
     }
   
-    find(query, limit , skip) {
-      return this.Model.find(query).skip(skip).limit(limit);
+    find(query, limit , skip , sortBy) {
+      return this.Model.find(query).skip(skip).limit(limit).sort(sortBy);
     }
   
     count(query = {}) {

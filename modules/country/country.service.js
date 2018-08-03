@@ -23,7 +23,7 @@ async function getCountry({ limit, skip,id }) {
     skip = skip ? parseInt(skip) : 0;
     console.log(limit, skip)
     let { data: count, error: dbError } = await resolve(countryDao.count());
-    let { data, error } = await resolve(countryDao.find(where, limit, skip));
+    let { data, error } = await resolve(countryDao.find(where, limit, skip, {name:1}));
     data.count = count;
     if (error) throw exceptionGenerator.createCustomException(error);
     //console.log(data);
@@ -41,13 +41,23 @@ async function saveCountryDetail(countryObj) {
 
 
 
-async function updateCountryDetail(countryObj) {
-    let { data, error } = await resolve(countryDao.create(countryObj));
+async function updateCountryDetail(countryId,obj) {
+    let { data, error } = await resolve(countryDao.updateById(countryId,obj));
     if (error) throw exceptionGenerator.createCustomException(error);
     //console.log(data);
     return data;
 
 }
 
+async function deleteCoutryDetails(countryId) {
+    console.log(countryId);
+    let { data, error } = await resolve(countryDao.remove({_id:countryId}));
+    if (error) throw exceptionGenerator.createCustomException(error);
+    if(data.n==0) return {msg:'id does not exist'};
+    return {msg:'delete successfully'};
 
-module.exports = { importDataWebService, getCountry, saveCountryDetail, updateCountryDetail };
+}
+
+
+
+module.exports = { importDataWebService, getCountry, saveCountryDetail, updateCountryDetail, deleteCoutryDetails };

@@ -7,7 +7,8 @@ router.post('/register',create);
 //     console.log(req.user);
 //     res.status(200).send('login successfull');
 // })
-router.post('/login',authorizeUser,login)
+router.post('/login',authorizeUser,login);
+
 
 
 module.exports = router;

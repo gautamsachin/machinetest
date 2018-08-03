@@ -1,4 +1,4 @@
-const { importDataWebService , getCountry, saveCountryDetail,   updateCountryDetail} = require('./country.service');
+const { importDataWebService , getCountry, saveCountryDetail,   updateCountryDetail, deleteCoutryDetails} = require('./country.service');
 const { sendSuccess, throwError } = require('../../common/response.handler');
 
 
@@ -44,8 +44,9 @@ async function getCountryData(req,res) {
 
  async function updateCountry(req,res) {
     try{
-        if(!req.param.id) throwError(res)
-     let data= await updateCountryDetail(req.param.id);
+        //if(!req.params.id) throwError(res)
+        console.log('from update controller',req.body)
+     let data= await updateCountryDetail(req.params.id,req.body);
      console.log('data from controller',data);
      return sendSuccess(res,data)
     }
@@ -56,5 +57,20 @@ async function getCountryData(req,res) {
  
  };
 
-module.exports = { importData, getCountryData, saveCountry, updateCountry };
+ async function deleteCoutry(req,res) {
+    try{
+        //if(!req.param.id) throwError(res)
+     let data= await deleteCoutryDetails(req.params.id);
+     console.log('data from controller',data);
+     return sendSuccess(res,data)
+    }
+    catch(err){
+        console.log(err);
+       return  throwError(res,err);
+    } 
+ 
+ };
+
+
+module.exports = { importData, getCountryData, saveCountry, updateCountry, deleteCoutry };
 

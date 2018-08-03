@@ -4,7 +4,7 @@
   const UserSchema = new mongoose.Schema({  
     name: String,
     email: {type:String, unique:true},
-    password: {type: String ,hideJSON: true }
+    password: {type: String ,hideJSON: true, required:true }
   });
 
   UserSchema.plugin(mongooseHidden)
